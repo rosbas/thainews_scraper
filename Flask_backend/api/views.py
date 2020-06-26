@@ -1,13 +1,68 @@
-# from .models_movie import Movie
 from .models import News, Tag, News_tag
 from . import db
-# from .scrapyTesting.thairath.main import
 from flask import Blueprint, jsonify, request, render_template, redirect, url_for
+import subprocess
+import threading
+from collections import deque
 # import crochet
 # crochet.setup()
 
 main = Blueprint('main', __name__)
 output_data = []
+scrape_in_progress = False
+scrape_complete = False
+queue = deque()
+
+
+def progressFinishCheck():
+    global scrape_in_progress
+    global queue
+    if len(queue) == 0:
+        scrape_in_progress = False
+    print('gets called')
+
+
+def popenAndCall(onExit, *popenArgs, **popenKWArgs):
+    """
+    Runs a subprocess.Popen, and then calls the function onExit when the
+    subprocess completes.
+    Use it exactly the way you'd normally use subprocess.Popen, except include a
+    callable to execute as the first argument. onExit is a callable object, and
+    *popenArgs and **popenKWArgs are simply passed up to subprocess.Popen.
+    """
+    def runInThread(onExit, popenArgs, popenKWArgs):
+        proc = subprocess.Popen(*popenArgs, **popenKWArgs)
+        proc.wait()
+        onExit()
+        return
+
+    thread = threading.Thread(target=runInThread,
+                              args=(onExit, popenArgs, popenKWArgs))
+    thread.start()
+
+    return thread  # returns immediately after the thread starts
+
+
+@main.route('/scraping', methods=['POST'])
+def hello_world():
+    global scrape_in_progress
+    global scrape_complete
+    global queue
+    # search_keyword = request.get_json()
+    # print(search_keyword)
+    # search_field = search_keyword['search_field']
+    search_field = "คสช"
+    # search_field = request.args.get('search_field')
+    queue.append(search_field)
+    if not scrape_in_progress:
+        scrape_in_progress = True
+        while len(queue) > 0:
+            field = queue.pop()
+            # X-Doubt: not sure how this will work out when deploying.
+            # popenAndCall(progressFinishCheck, ['ls'], cwd='./spider')
+            popenAndCall(progressFinishCheck, [
+                         'python', 'run_spiders.py', field], cwd='./spider')
+    return 'SCRAPE IN PROGRESS'
 
 
 @main.route('/news')
