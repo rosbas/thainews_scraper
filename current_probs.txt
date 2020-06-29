@@ -1,5 +1,0 @@
-Currently need to set FLASK_APP=api and FLASK_DEBUG=1
-and also need start env everytime: pipenv shell
-When deploying the server, need to auto included that probs
-
-Integrating with spider.

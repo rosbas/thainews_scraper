@@ -7,10 +7,13 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app
+         # , supports_credentials=True
+         )
 
     # //for scrapy
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///scrapy_quotes.db'
+    # app.config['CORS_HEADERS'] = 'Content-Type'
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
     db.init_app(app)
