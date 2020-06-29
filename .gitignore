@@ -18,6 +18,7 @@ pnp.js
 .env.development.local
 .env.test.local
 .env.production.local
+trast.txt
 
 **.log
 **.logs

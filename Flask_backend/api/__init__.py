@@ -7,8 +7,8 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}}
-         )
+    # is this secure, someone helpppp
+    CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 
     # //for scrapy
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///scrapy_quotes.db'

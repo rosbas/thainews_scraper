@@ -11,6 +11,8 @@ crayons==0.3.1
 crochet==1.12.0
 cryptography==2.9.2
 cssselect==1.1.0
+cycler==0.10.0
+DateTime==4.3
 Flask==1.1.2
 Flask-Cors==3.0.8
 Flask-SQLAlchemy==2.4.3
@@ -20,8 +22,11 @@ incremental==17.5.0
 itemadapter==0.1.0
 itsdangerous==1.1.0
 Jinja2==2.11.2
+kiwisolver==1.2.0
 lxml==4.5.1
 MarkupSafe==1.1.1
+matplotlib==3.2.2
+numpy==1.19.0
 parsel==1.6.0
 Protego==0.1.16
 pyasn1==0.4.8
@@ -31,12 +36,16 @@ PyDispatcher==2.0.5
 PyHamcrest==2.0.2
 PyMySQL==0.9.3
 pyOpenSSL==19.1.0
+pyparsing==2.4.7
 pythainlp==2.2.0
 python-crfsuite==0.9.7
+python-dateutil==2.8.1
 python-dotenv==0.13.0
 pytz==2020.1
 queuelib==1.5.0
 requests==2.24.0
+response==0.4.0
+scipy==1.5.0
 Scrapy==2.2.0
 selenium==3.141.0
 service-identity==18.1.0

@@ -8,3 +8,5 @@ Things that u have don't have rn
 so go added that somehow for now, lul
 
 will come back and edit this later
+
+For more information regarding current progress => check desperate_log.txt
