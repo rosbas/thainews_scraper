@@ -5,34 +5,21 @@ import app from './Functions/axoisConfig';
 import { DownloadOutlined } from '@ant-design/icons';
 
 const Main = () => {
-	// const [movies, setMovies] = useState([]);
 	const [news, setNews] = useState([]);
 	const [word, setWord] = useState('');
-	// const headers = {
-	// 	'Content-Type': 'multipart/form-data',
-	// };
 	const onChange = (data) => {
 		setWord(data);
 	};
 	const scrapeInternet = () => {
 		console.log(`Scrapy now begin searching on ${word}`);
-		const url = 'http://localhost:5000/scraping';
-		// const here = 'https://cors-anywhere.herokuapp.com/' + url;
-		app.post(url, { search_field: `${word}` })
+		app.post('/scraping', { search_field: `${word}` })
 			.then((res) => {
 				const recieveData = res.data;
 				console.log(recieveData);
 			})
-			.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'));
+			.catch(() => console.log('Can’t access ' + app.baseURL + '/scraping response. Blocked by browser?'));
 	};
-	// const onSearch = (searchText) => {
-	// 	console.log('searching');
-	// 	console.log(searchText + ' searching');
-	// };
-	// const onSelect = (data) => {
-	// 	console.log('I did select');
-	// };
-	//this is for getting data.
+
 	useEffect(() => {
 		fetch('http://localhost:5000/news', {
 			headers: {
@@ -47,6 +34,7 @@ const Main = () => {
 
 	return (
 		<div className="App">
+			{/* need bigger brain to implement this function. */}
 			<AutoComplete
 				dropdownMatchSelectWidth={252}
 				style={{

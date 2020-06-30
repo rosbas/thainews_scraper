@@ -1,20 +1,39 @@
 Tasks:
 
-Button for loading the data from the current db according to the keyword. (I still don't know how to do this)
-    - will do the stupid way first which is %{keyword}%
+Check for secureness??
 
-Be able to download the file data in file xsl file format?
+Autocomplete the search function??? Nah.
+
+Deploy onto the server
+    -change from sqlite to something else??
+    -worrying about spider stuff?
+
+run spider in async mode??
+
+Upgrade UI??
+    -create a pop up when click on the data?
+    -live progress bar for the scraping process?
+
+Be able to download the file data in file xsl file format? (why though?)
+
+Clean the code? Nah.
 
 In progress:
+
+
+
+Done/Completed:
+
+Button for loading the data from the current db according to the keyword. (I still don't know how to do this)
+    - will do the stupid way first which is %{keyword}%
+        -solved by doing stupid query and filter the db file.
+
 Button for scrape function -> use keyword from the search text box  -> use axois to post
     - have CORS problem.
     suggest solution so far:
     https://fsociety.at/why-my-browser-is-sending-an-OPTIONS-request-instead-of-POST/
     https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe
-
-
-
-Done/Completed:
+        -solved by a few magic line
 
 Integrating with spider.
     -strugling so much with Absolute import and relative import problems.
