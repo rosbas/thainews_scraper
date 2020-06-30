@@ -1,13 +1,15 @@
 # thainews_scraper
 
-###Installation Guide
+# Installation Guide
+
 Things that need to be installed to test the current app.
 1.) python pip stuff
 2.) node_modules in React_frontend
 
 so go added that pls
 
-###Set up Flask server
+# Set up Flask server
+
 First, navigate to the folder called Flask_backend
 
 ```sh
@@ -38,7 +40,8 @@ To start the server, just use command: flask run
 $ flask run
 ```
 
-###Set up React page
+# Set up React page
+
 navigate to the react folder then install the node module and run: npm start
 
 ```sh
