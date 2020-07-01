@@ -77,7 +77,7 @@ ITEM_PIPELINES = {
 
 }
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
 # LOG_FILE = "news.log"
 
 # sqlite
