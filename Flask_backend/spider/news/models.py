@@ -19,7 +19,7 @@ def db_connect():
     # pymysql.install_as_MySQLdb()
     pymysql.install_as_MySQLdb()
     if not os.getenv("DATABASE_URL"):
-        raise RuntimeError("DATABASE_URL is not set")
+        # raise RuntimeError("DATABASE_URL is not set")
         CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
             drivername="mysql",
             user="user",
@@ -33,6 +33,7 @@ def db_connect():
         # return create_engine(CONNECTION_STRING, client_encoding='utf8')
         return create_engine(CONNECTION_STRING)
     else:
+        print(os.getenv("DATABASE_URL"))
         return create_engine((os.getenv("DATABASE_URL")))
 
 
