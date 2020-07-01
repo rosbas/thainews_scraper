@@ -47,7 +47,7 @@ class ThairathPipeline:
 
         finally:
             session.close()
-        return item
+        # return item
 
 class DuplicatesPipeline(object):
 
@@ -66,7 +66,7 @@ class DuplicatesPipeline(object):
         exist_news = session.query(News).filter_by(url=item["url"]).first()
         if exist_news is not None:  # the current quote exists
             raise DropItem("Duplicate item found: %s" % item["url"])
-            session.close()
-        else:
-            return item
-            session.close()
+            # session.close()
+        # else:
+        #     return item
+            # session.close()
