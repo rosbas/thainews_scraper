@@ -78,11 +78,11 @@ ITEM_PIPELINES = {
 }
 
 LOG_LEVEL = 'INFO'
-LOG_FILE = "news.log"
+# LOG_FILE = "news.log"
 
 # sqlite
-SQLITE_FILE = "../api/scrapy_news.db"
-SQLITE_TABLE = "news"
+# SQLITE_FILE = "../api/scrapy_news.db"
+# SQLITE_TABLE = "news"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

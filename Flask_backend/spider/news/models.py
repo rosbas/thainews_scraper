@@ -6,7 +6,7 @@ from sqlalchemy import (
 import pymysql
 import os
 
-from .settings import SQLITE_FILE
+# from .settings import SQLITE_FILE
 
 Base = declarative_base()
 
@@ -17,11 +17,20 @@ def db_connect():
     Returns sqlalchemy engine instance
     """
     # pymysql.install_as_MySQLdb()
+    pymysql.install_as_MySQLdb()
     if not os.getenv("DATABASE_URL"):
         # raise RuntimeError("DATABASE_URL is not set")
-        # CONNECTION_STRING = "sqlite:///scrapy_quotes.db"
-        CONNECTION_STRING = "sqlite:///" + SQLITE_FILE
-        print(CONNECTION_STRING)
+        CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
+            drivername="mysql",
+            user="user",
+            passwd="password",
+            host="localhost",
+            port="8080",
+            db_name="db",
+            # drivername="postgresql",
+
+        )
+        # return create_engine(CONNECTION_STRING, client_encoding='utf8')
         return create_engine(CONNECTION_STRING)
     else:
         return create_engine((os.getenv("DATABASE_URL")))

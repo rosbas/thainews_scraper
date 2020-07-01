@@ -43,7 +43,7 @@ class ThairathSpiderMiddleware:
 
         for i in result:
             if isinstance(i, NewsItem):
-                tokenizeList = word_tokenize(i["title"], engine="pyicu", keep_whitespace=False)
+                tokenizeList = word_tokenize(i["title"], engine="deepcut", keep_whitespace=False)
                 for word in tokenizeList:
                     wordSet.add(word)
 
