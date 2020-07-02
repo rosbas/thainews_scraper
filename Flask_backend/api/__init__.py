@@ -16,7 +16,7 @@ def create_app():
 
     # //for scrapy
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL",
-                                                      'sqlite:///scrapy_quotes.db')
+                                                      'sqlite:///scrapy_news.db')
             # "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
             # drivername="mysql",
             # user="user",

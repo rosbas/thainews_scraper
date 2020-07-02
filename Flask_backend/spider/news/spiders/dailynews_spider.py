@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 from pytz import timezone, all_timezones
 import re
 import scrapy
@@ -32,7 +34,11 @@ class DalinewsSpiderSpider(scrapy.Spider):
     def parse(self, response):
         op = webdriver.ChromeOptions()
         op.add_argument('headless')
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=op)
+        if os.getenv('IS_APP_ENGINE'):
+            driver = webdriver.Chrome(chrome_options=op)
+        else:
+            driver = webdriver.Chrome(ChromeDriverManager().install(), options=op)
+
         driver.get("https://www.dailynews.co.th/search?q=" +
                    quote(self.search_field))
         self.current_page += 1
