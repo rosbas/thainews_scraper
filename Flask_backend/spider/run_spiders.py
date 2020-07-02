@@ -59,13 +59,13 @@ def run_everything():
     duplicateCountBeforeBreak = 0
     while roundCount < iterations:
         alreadyUsedWord.append(search_field)
-        # for spider_name in spider_loader.list():
-        #     print("Running spider %s" % (spider_name))
-        #     print(spider_name)
-        #     run_spider(spider_name, setting, search_field,
-        #                alreadyUsedWord, notYetUsedWord)
-        run_spider('thai_spider', setting, search_field,
-                   alreadyUsedWord, notYetUsedWord)
+        for spider_name in spider_loader.list():
+            print("Running spider %s" % (spider_name))
+            print(spider_name)
+            run_spider(spider_name, setting, search_field,
+                       alreadyUsedWord, notYetUsedWord)
+        # run_spider('thai_spider', setting, search_field,
+        #            alreadyUsedWord, notYetUsedWord)
         session.commit()
         newsCount = session.query(func.count(News.id)).scalar()
 
