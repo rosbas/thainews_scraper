@@ -1,6 +1,6 @@
 runtime: custom
 env: flex
-entrypoint: python run.py
+entrypoint: gunicorn -b :${PORT:-5000} run:app
 
 runtime_config:
   python_version: 3

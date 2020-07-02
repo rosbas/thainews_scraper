@@ -1,4 +1,5 @@
-FROM debian:stable
+# FROM debian:stable
+FROM gcr.io/google-appengine/python
 LABEL maintainer "Sean Pianka <pianka@eml.cc>"
 
 # # For chromedriver installation: curl/wget/libgconf/unzip
