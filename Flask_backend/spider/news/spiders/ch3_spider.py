@@ -8,6 +8,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 from pytz import timezone, all_timezones
+import os
 
 class Ch3Spider(scrapy.Spider):
     name = 'ch3_spider'
@@ -31,7 +32,13 @@ class Ch3Spider(scrapy.Spider):
     def parse(self, response):
         op = webdriver.ChromeOptions()
         op.add_argument('headless')
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=op)
+        op.add_argument("--no-sandbox")
+        op.add_argument("--disable-setuid-sandbox")
+        op.add_argument("--disable-extensions")
+        if os.getenv('IS_APP_ENGINE'):
+            driver = webdriver.Chrome(chrome_options=op)
+        else:
+            driver = webdriver.Chrome(ChromeDriverManager().install(), options=op)
         driver.get("https://www.ch3thailand.com/search?q=" + quote(self.search_field))
         self.count_page += 1
         while self.count_page < self.max_page:

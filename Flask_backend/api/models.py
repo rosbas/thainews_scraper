@@ -6,7 +6,7 @@ class News(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column('news_topic', db.Text())
-    body = db.Column('news_content', db.Text(400000))
+    body = db.Column('news_content', db.Text())
     date = db.Column('date', db.Text())  # Date
     author = db.Column('author', db.Text())
     url = db.Column('url', db.Text())

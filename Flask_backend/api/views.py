@@ -61,7 +61,7 @@ def hello_world():
             field = queue.pop()
             # popenAndCall(progressFinishCheck, ['ls'], cwd='./spider')
             popenAndCall(progressFinishCheck, [
-                         'python', 'run_spiders.py', field], cwd='./spider')
+                         'python3', 'run_spiders.py', field], cwd='./spider')
     return 'SCRAPE IN PROGRESS'
 
 

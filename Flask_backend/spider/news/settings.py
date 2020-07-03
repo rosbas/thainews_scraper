@@ -23,7 +23,8 @@ ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
-
+MEMUSAGE_ENABLED = 1
+MEMUSAGE_LIMIT_MB = 400
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
@@ -76,12 +77,12 @@ ITEM_PIPELINES = {
 
 }
 
-LOG_LEVEL = 'INFO'
-LOG_FILE = "news.log"
+# LOG_LEVEL = 'INFO'
+# LOG_FILE = "news.log"
 
 # sqlite
-SQLITE_FILE = "../api/scrapy_news.db"
-SQLITE_TABLE = "news"
+# SQLITE_FILE = "../api/scrapy_news.db"
+# SQLITE_TABLE = "news"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

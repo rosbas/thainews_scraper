@@ -6,7 +6,7 @@ from sqlalchemy import (
 import pymysql
 import os
 
-from .settings import SQLITE_FILE
+# from .settings import SQLITE_FILE
 
 Base = declarative_base()
 
@@ -17,13 +17,26 @@ def db_connect():
     Returns sqlalchemy engine instance
     """
     # pymysql.install_as_MySQLdb()
+    pymysql.install_as_MySQLdb()
     if not os.getenv("DATABASE_URL"):
         # raise RuntimeError("DATABASE_URL is not set")
-        # CONNECTION_STRING = "sqlite:///scrapy_quotes.db"
-        CONNECTION_STRING = "sqlite:///" + SQLITE_FILE
-        print(CONNECTION_STRING)
+        # CONNECTION_STRING = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
+        #     drivername="mysql",
+        #     user="user",
+        #     passwd="password",
+        #     host="mysql",
+        #     port="8080",
+        #     db_name="db",
+        #     # drivername="postgresql",
+        #
+        # )
+        CONNECTION_STRING="sqlite:///" + "../api/scrapy_news.db"
+        # return create_engine(CONNECTION_STRING, client_encoding='utf8')
+        # return create_engine("postgres://sdvmonpjqpjvrz:a2c311a68c7e9aeeef95927718116c3751f992fd5b3d2627aa14eb3c10892c77@ec2-50-19-26-235.compute-1.amazonaws.com:5432/d33b4f4d8teabq")
+
         return create_engine(CONNECTION_STRING)
     else:
+        print(os.getenv("DATABASE_URL"))
         return create_engine((os.getenv("DATABASE_URL")))
 
 
@@ -43,7 +56,7 @@ class News(Base):
     __tablename__ = "news"
     id = Column(Integer, primary_key=True)
     title = Column('news_topic', Text())
-    body = Column('news_content', Text(400000))
+    body = Column('news_content', Text())
     date = Column('date', Text())  # Date
     author = Column('author', Text())
     url = Column('url', Text())
