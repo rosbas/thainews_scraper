@@ -67,23 +67,30 @@ def hello_world():
 
 @main.route('/news')
 def news_gather():
-    news_list = News.query.all()
-    news_array = []
+    try:
+        news_list = News.query.all()
+        news_array = []
 
-    for one in news_list:
-        news_array.append({'id': one.id, 'title': one.title, 'body': one.body, 'date': one.date,
-                           'author': one.author, 'url': one.url, 'category': one.category  # , 'tags': one.tags ##
-                           })
-    return jsonify({'news': news_array})
+        for one in news_list:
+            news_array.append({'id': one.id, 'title': one.title, 'body': one.body, 'date': one.date,
+                            'author': one.author, 'url': one.url, 'category': one.category  # , 'tags': one.tags ##
+                            })
+        return jsonify({'news': news_array})
+    except:
+        print("DB is not initilize")
+        return "Database is not initilize"
 
 
 @main.route('/news/csv')
 def news_gatherCSV():
-    news_list = News.query.all()
-    # generateCSVFromSQLAlchemy(news_list,True)
-    # return None
-    return Response(generateCSVFromSQLAlchemy(news_list, True), mimetype='text/csv')
-
+    try:
+        news_list = News.query.all()
+        # generateCSVFromSQLAlchemy(news_list,True)
+        # return None
+        return Response(generateCSVFromSQLAlchemy(news_list, True), mimetype='text/csv')
+    except:
+        print("DB is not initilize")
+        return "Database is not initilize"
 
 def generateCSVFromSQLAlchemy(sqlQueryList, withKeys):
     i = 0

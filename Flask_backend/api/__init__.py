@@ -15,18 +15,17 @@ def create_app():
     CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 
     # //for scrapy
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL",
-                                                      'sqlite:///scrapy_news.db')
-            # "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
-            # drivername="mysql",
-            # user="user",
-            # passwd="password",
-            # host="mysql",
-            # port="8080",
-            # db_name="db",))
-
-    app.config['CORS_HEADERS'] = 'Content-Type'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL",
+    #                                                   'sqlite:///scrapy_news.db')
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(
+            drivername="mysql",
+            user="root",
+            passwd="diluggmkLn4NhJuv",
+            host="35.224.148.74",
+            port="3306",
+            db_name="db") #don't have db name yet.
+    # 'mysql://root:diluggmkLn4NhJuv@35.224.148.74:3306/database.db'
     pymysql.install_as_MySQLdb()
     db.init_app(app)
 
