@@ -39,19 +39,25 @@ jobs:
       - run: echo "Wad sup"
       - run: sleep 25
   two:
-    executor: python/default
+    # executor: python/default
+    # steps:
+    #   - checkout
+    #   - python/load-cache
+    #   - python/install-deps
+    #   - python/save-cache
+    #   - run:
+    #       command: dir
+    #       name: Test Directory
+    #   - run:
+    #       command: ../Flask_backend/api/tests test_basic.py
+    #       name: Test Basic
+    docker: # it runs inside a docker image, the same as above.
+      - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: dir
-          name: Test Directory
-      - run:
-          command: ../Flask_backend/api/tests test_basic.py
-          name: Test Basic
-  
+      - run: echo "A more familiar hi" # We run a similar echo command to above.
+      - run: sleep 15 # and then sleep for 15 seconds.
+      
 workflows:
   version: 2
   one_and_two:
