@@ -36,7 +36,7 @@ workflows:
       - one
       - two:
         requires:
-          - one
+         - one
 
 # orbs:
 #   python: circleci/python@0.2.1
