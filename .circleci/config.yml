@@ -12,8 +12,15 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: dir
-          name: Test
+          command: |
+            cd Flask_backend
+            pipenv shell
+            pip install -r requirements.txt
+          name: Accessing python shell
+      - save_cache:
+          keys:
+            - myapp-{{ .Branch }}-{{ checksum "requirements.txt" }}
+            - myapp
 
 workflows:
   main:
