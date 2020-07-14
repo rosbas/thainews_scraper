@@ -34,7 +34,7 @@ def popenAndCall(onExit, *popenArgs, **popenKWArgs):
     *popenArgs and **popenKWArgs are simply passed up to subprocess.Popen.
     """
     def runInThread(onExit, popenArgs, popenKWArgs):
-        proc = subprocess.Popen(*popenArgs, **popenKWArgs)
+        proc = subprocess.Popen(*popenArgs, **popenKWArgs, shell= True)
         proc.wait()
         onExit()
         return
@@ -61,7 +61,7 @@ def hello_world():
             field = queue.pop()
             # popenAndCall(progressFinishCheck, ['ls'], cwd='./spider')
             popenAndCall(progressFinishCheck, [
-                         'python3', 'run_spiders.py', field], cwd='./spider')
+                         'python', 'run_spiders.py', field], cwd='./spider')
     return 'SCRAPE IN PROGRESS'
 
 
