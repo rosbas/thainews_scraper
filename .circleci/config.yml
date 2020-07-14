@@ -37,7 +37,7 @@ jobs:
     steps:
       - checkout
       - run: echo "Wad sup"
-      - run: sleep 25
+      - run: sleep 15
   two:
     # executor: python/default
     # steps:
@@ -57,15 +57,21 @@ jobs:
       - checkout
       - run: echo "A more familiar hi" # We run a similar echo command to above.
       - run: sleep 15 # and then sleep for 15 seconds.
-      
+
 workflows:
   version: 2
-  one_and_two:
-    jobs:
+  one_and_two: # this is the name of our workflow
+    jobs: # and here we list the jobs we are going to run.
       - one
-      - two:
-        requires:
-         - one
+      - two
+# workflows:
+#   version: 2
+#   one_and_two:
+#     jobs:
+#       - one
+#       - two:
+#         requires:
+#          - one
 
 # orbs:
 #   python: circleci/python@0.2.1
