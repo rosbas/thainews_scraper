@@ -3,19 +3,55 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
 
+# jobs:
+#   build-and-test:
+  
 jobs:
-  build-and-test:
-    executor: python/default
+  one:
+    docker:
+      - image: circleci/ruby: 2.4.1
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: ./manage.py test
-          name: Test
-
+      -run: echo "Wad sup"
+      -run: sleep 25
+  two:
+    build-and-test:
+      executor: python/default
+      steps:
+        - checkout
+        - python/load-cache
+        - python/install-deps
+        - python/save-cache
+        - run:
+            command: dir
+            name: Test Directory
+        - run:
+            command: ../Flask_backend/api/tests test_basic.py
+            name: Test Basic
+  
 workflows:
-  main:
+  version: 2
+  one_and_two:
     jobs:
-      - build-and-test
+      - one
+      - two
+
+# orbs:
+#   python: circleci/python@0.2.1
+
+# jobs:
+#   build-and-test:
+#     executor: python/default
+#     steps:
+#       - checkout
+#       - python/load-cache
+#       - python/install-deps
+#       - python/save-cache
+#       - run:
+#           command: ./manage.py test
+#           name: Test
+
+# workflows:
+#   main:
+#     jobs:
+#       - build-and-test
