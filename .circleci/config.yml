@@ -34,7 +34,9 @@ workflows:
   one_and_two:
     jobs:
       - one
-      - two
+      - two:
+        requires:
+          - one
 
 # orbs:
 #   python: circleci/python@0.2.1
