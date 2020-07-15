@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.3.2
 
 parameters:
-  dependency-file:
+  dependency:
     default: Flask_backend/requirements.txt
     description: The file to install dependencies from.
     type: string
@@ -23,7 +23,7 @@ jobs:
       # - python/save-cache
       # - python/test
       - restore_cache:
-          key: myapp-{{ checksum "<<parameters.dependency-file>>" }}
+          key: myapp-{{ checksum "<< parameters.dependency >>" }}
       - run:
           command: pip install -r Flask_backend/requirements.txt
           name: Accessing python shell
