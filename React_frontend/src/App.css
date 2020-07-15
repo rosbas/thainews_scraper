@@ -21,6 +21,19 @@
   size: 3px;
 }
 
+.bborder2 {
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  size: 2px;
+}
+
+.column-divider {
+  border-left-style: solid;
+  border-left-color: black;
+  size: 1px;
+}
+
+
 .resultbox {
   border-style: solid;
   border-color: black;

@@ -16,7 +16,7 @@ const Outputbox = ({keyword}) => {
             .then(res1 => {
                 console.log(res1);
                 //setresultItem(keyword);
-                setresultItem(res1.news);
+                setresultItem(res1.data.news);
                 //setresultItem(res1.data.lyrics);
             });
             setLoading(true);
@@ -29,10 +29,21 @@ const Outputbox = ({keyword}) => {
         resultFunction()
     }, [] );
 
-
+    const listItems = resultItem.map((indivnew, index) =>
+    <div>
+        <div style={{display: 'flex', justifyContent: 'center', padding: '5px'}}>
+            <li>{indivnew.title}</li>
+            <div className = "column-divider"></div>
+            <li>{indivnew.body}</li>
+            <div className = "column-divider"></div>
+            <li>{indivnew.author}</li>  
+        </div>
+        <div className = "bborder2"></div>
+    </div>
+    );  
     return (
     <div>
-        {loading ? resultItem : <img src={loading1} className="loadingpic" alt="loading" /> }
+        {loading ? listItems : <img src={loading1} className="loadingpic" alt="loading" /> }
     </div>
     );
 };
