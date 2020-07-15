@@ -27,15 +27,15 @@ jobs:
       # - python/save-cache
       # - python/test
       - restore_cache:
-          key: myapp-{{ checksum "<< pipeline.parameters.dependency-file >>" }}
+          key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
           command: |
             dir
-            pip install -r << pipeline.parameters.dependency >>
+            pip install -r << pipeline.parameters.dependency-file >>
           name: Installing dependency
           working_directory: Flask_backend
       - save_cache:
-          key: myapp-{{ checksum "<< pipeline.parameters.dependency-file >>" }}
+          key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
           paths: 
             - "Flask_backend"
       - run:
