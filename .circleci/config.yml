@@ -18,22 +18,19 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+      # - python/load-cache
+      # - python/install-deps
+      # - python/save-cache
       # - python/test
-      # - restore_cache:
-      #     key: myapp-{{ checksum "requirements.txt" }}
-      # - run:
-      #     command: |
-      #       cd Flask_backend
-      #       pipenv shell
-      #       pip install -r requirements.txt
-      #     name: Accessing python shell
-      # - save_cache:
-      #     key: myapp-{{ checksum "requirements.txt" }}
-      #     paths: 
-      #       - "env"
+      - restore_cache:
+          key: myapp-{{ checksum "<<parameters.dependency-file>>" }}
+      - run:
+          command: pip install -r Flask_backend/requirements.txt
+          name: Accessing python shell
+      - save_cache:
+          key: myapp-{{ checksum "Flask_backend/requirements.txt" }}
+          paths: 
+            - "Flask_backend"
 
 workflows:
   main:
