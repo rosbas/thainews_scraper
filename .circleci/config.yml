@@ -35,8 +35,8 @@ jobs:
       - run:
           name: Testing dummy python test.
           command: |
-          echo Running Test
-          python Flask_backend/api/tests/test_basic.py
+            echo Running Test
+            python Flask_backend/api/tests/test_basic.py
 workflows:
   main:
     jobs:
