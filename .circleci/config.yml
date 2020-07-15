@@ -11,18 +11,19 @@ jobs:
       - python/load-cache
       - python/install-deps
       - python/save-cache
-      - restore_cache:
-          key: myapp-{{ checksum "requirements.txt" }}
-      - run:
-          command: |
-            cd Flask_backend
-            pipenv shell
-            pip install -r requirements.txt
-          name: Accessing python shell
-      - save_cache:
-          key: myapp-{{ checksum "requirements.txt" }}
-          paths: 
-            - "env"
+      - python/test
+      # - restore_cache:
+      #     key: myapp-{{ checksum "requirements.txt" }}
+      # - run:
+      #     command: |
+      #       cd Flask_backend
+      #       pipenv shell
+      #       pip install -r requirements.txt
+      #     name: Accessing python shell
+      # - save_cache:
+      #     key: myapp-{{ checksum "requirements.txt" }}
+      #     paths: 
+      #       - "env"
 
 workflows:
   main:
