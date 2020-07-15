@@ -40,10 +40,11 @@ jobs:
             - "Flask_backend"
       - run:
           name: Testing dummy python test.
+          working_directory: Flask_backend
           command: |
             echo Running Test
-            python Flask_backend/api/tests/test_basic.py
-            python Flask_backend/test.py
+            python api/tests/test_basic.py
+            python test.py
 workflows:
   main:
     jobs:
