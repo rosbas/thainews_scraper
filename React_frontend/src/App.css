@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  margin: 20px;
+  pointer-events: none;
+}
+
+.loadingpic {
+  height: 40vmin;
+  width: 40vmin;
+  margin: 20px;
+  pointer-events: none;
+}
+
+.bborder {
+  border-bottom-style: solid;
+  border-bottom-color: coral;
+  size: 3px;
+}
+
+.resultbox {
+  border-style: solid;
+  border-color: black;
+  margin: 40px;
+  size: 3px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
