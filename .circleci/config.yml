@@ -3,14 +3,22 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
 
+parameters:
+  dependency-file:
+    default: Flask_backend/requirements.txt
+    description: The file to install dependencies from.
+    type: string
+  local:
+    default: true
+    description: 'Install packages for local user, not globally. Defaults to true.'
+    type: boolean
+
 jobs:
   build-and-test:
     executor: python/default
     steps:
       - checkout
       - python/load-cache
-      - run:
-          command: cd Flask_backend
       - python/install-deps
       - python/save-cache
       # - python/test
