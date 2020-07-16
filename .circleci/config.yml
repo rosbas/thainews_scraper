@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.3.2
-  gke: circleci/gcp-gke@0.7.1
+  gke: circleci/gcp-gke@1.0.4
 
 parameters:
   dependency:
