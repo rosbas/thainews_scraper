@@ -8,7 +8,6 @@ from unittest import mock
 from scrapy import Request
 from scrapy.http import HtmlResponse
 
-# from api import app,db,models
 from spider.news.models import News
 from spider.news.spiders.thairath_spider import ThaiRathSpider
 from api.views import news_gather
