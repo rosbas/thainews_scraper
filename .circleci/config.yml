@@ -33,7 +33,7 @@ jobs:
       #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
           command: |
-            pip --user install -r << pipeline.parameters.dependency-file >>
+            sudo pip install --user -r << pipeline.parameters.dependency-file >>
           name: Installing dependency
           working_directory: Flask_backend
       - save_cache:
