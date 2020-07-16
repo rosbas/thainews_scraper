@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { useEffect } from 'react';
-import '../App.css';
+import '../../App.css';
 
 import Outputbox from './Outputbox';
 
@@ -28,10 +28,10 @@ const Searchbox = () => {
             <div className="bborder">
                 <form>
                     <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <input style={{fontSize: 40, width: 600, margin: 20}} type='text' placeholder = 'Keyword' value = {keyword} onChange={(e) => setkeyword(e.target.value)}/>
-                        <button className = "btn btn-secondary btn-sm" style = {{ fontSize: '30px', margin:20}} onClick = {fetch1}>Fetch</button>
-                        <button className = "btn btn-danger btn-sm" style = {{ fontSize: '30px', margin:20}} onClick = {crawl1}>Crawl</button>
-                        <button className = "btn btn-primary btn-sm" style = {{ fontSize: '30px', margin:20}} onClick = {clear1}>Clear</button>
+                        <input className = "mainsearchinput"  type='text' placeholder = 'Keyword' value = {keyword} onChange={(e) => setkeyword(e.target.value)}/>
+                        <button className = "btn btn-secondary btn-sm mainsearchbutton" onClick = {fetch1}><span className = 'mainbuttontext1'>Fetch</span></button>
+                        <button className = "btn btn-danger btn-sm mainsearchbutton" onClick = {crawl1}><span className = 'mainbuttontext1'>Crawl</span></button>
+                        <button className = "btn btn-primary btn-sm mainsearchbutton" onClick = {clear1}><span className = 'mainbuttontext1'>Clear</span></button>
                     </div>
                 </form>
             </div>

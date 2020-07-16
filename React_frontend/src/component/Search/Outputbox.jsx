@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import loading1 from '../loading1.svg'
+import loading1 from '../../loading1.svg'
 import { useEffect } from 'react';
 
 const Outputbox = ({keyword}) => {
     const [resultItem, setresultItem] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
-
+    var firsturl = 'https://acaya-intern.et.r.appspot.com/' + 'searching?search_field=' + keyword.toString();
+    const [url1, seturl] = React.useState( firsturl + '');
+    
     const resultFunction = async () => {
         try {
             const data = await axios
             //.get('https://api.lyrics.ovh/v1/Dragonforce/Through%20the%20Fire%20and%20Flames')
-            .get('https://acaya-intern.et.r.appspot.com/news')
-            //https://api.lyrics.ovh/v1/coldplay/
+            //const url = 'https://acaya-intern.et.r.appspot.com/searching?search_field='
+            //url = url + keyword
+            //.get(url)
+            //console.log('before post ',url1)
+            .post(url1)
+            
             .then(res1 => {
                 console.log(res1);
                 //setresultItem(keyword);

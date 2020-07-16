@@ -33,11 +33,26 @@
   size: 1px;
 }
 
+.mainsearchinput {
+  margin: 3% 1% 3% 1%;
+  width: 100vmin;
+  font-size: calc(30px + 5vmin);
+}
+
+.mainsearchbutton {
+  margin: 3% 1% 3% 1%;
+  width: 5px + 15vmin;
+  height: 30px + 5vmin;
+}
+
+.mainbuttontext1 {
+  font-size: calc(10px + 4vmin);
+}
 
 .resultbox {
   border-style: solid;
   border-color: black;
-  margin: 40px;
+  margin: 3%;
   size: 3px;
 }
 

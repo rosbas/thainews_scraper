@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Dankmemes from "./component/Dankmemes.jsx";
-import Searchbar from "./component/Searchbar.jsx";
+import Searchbar from "./component/Search/Searchbar.jsx";
 import Navbarc from "./component/Navbar.jsx";
 import Howwedoit from "./component/Howwedoit.jsx";
 import Moreyeets from "./component/Moreyeets.jsx";

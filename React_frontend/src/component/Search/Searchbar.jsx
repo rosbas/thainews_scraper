@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import loading1 from '../loading1.svg';
-import '../App.css';
+import '../../App.css';
 
 import Searchbox from './Searchbox';
 
