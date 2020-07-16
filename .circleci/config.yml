@@ -27,8 +27,8 @@ jobs:
       # - python/install-deps
       # - python/save-cache
       # - python/test
-      - restore_cache:
-          key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
+      # - restore_cache:
+      #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
           command: |
             dir
