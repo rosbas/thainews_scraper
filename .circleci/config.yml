@@ -33,7 +33,7 @@ jobs:
       #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
           command: |
-            dir
+            pipenv shell
             pip install -r << pipeline.parameters.dependency-file >>
           name: Installing dependency
           working_directory: Flask_backend
@@ -41,6 +41,10 @@ jobs:
           key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
           paths: 
             - "Flask_backend"
+      - run:
+          name: Check Directory
+          working_directory: Flask_backend
+          command: dir
       - run:
           name: Testing dummy python test.
           working_directory: Flask_backend
