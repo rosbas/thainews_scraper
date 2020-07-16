@@ -8,18 +8,13 @@ from unittest import mock
 from scrapy import Request
 from scrapy.http import HtmlResponse
 
+from api import app,db,models
 from spider.news.models import News
 from spider.news.spiders.thairath_spider import ThaiRathSpider
 from api.views import news_gather
 
 from betamax import Betamax
 from betamax.fixtures.unittest import BetamaxTestCase
-
-from flask import Flask
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-import pymysql
 
 
 class BasicTests(unittest.TestCase):
@@ -31,11 +26,9 @@ class BasicTests(unittest.TestCase):
 
     # executed prior to each test
     def setUp(self):
-        app = Flask(__name__)
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///scrapy_news.db'
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + "scrapy_news1.db"
         # os.environ["DATABASE_URL"] = 'sqlite:///' + "scrapy_news2.db"
         self.app = app.test_client()
