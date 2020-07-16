@@ -20,9 +20,9 @@ parameters:
 
 jobs:
   build-and-test:
-    executor: python/3.7.2
-    # docker:
-    #   - image: circleci/python:3.7.2
+    # executor: python/default
+    docker:
+      - image: circleci/python:3.7.2
     steps:
       - checkout
       # - python/load-cache
@@ -32,8 +32,12 @@ jobs:
       # - restore_cache:
       #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
+          name: Check Directory Once
+          working_directory: Flask_backend
+          command: dir
+      - run:
           command: |
-            pip install -r << pipeline.parameters.dependency-file >>
+            pip install --user -r << pipeline.parameters.dependency-file >>
           name: Installing dependency
           working_directory: Flask_backend
       - save_cache:
