@@ -37,14 +37,22 @@ const Outputbox = ({keyword}) => {
 
     const listItems = resultItem.map((indivnew, index) =>
     <div>
-        <div style={{display: 'flex', justifyContent: 'center', padding: '5px'}}>
+        <div style={{display: 'inline-block', justifyContent: 'center', margin: '2px', padding: '1px'}}>
             <li>{indivnew.title}</li>
-            <div className = "column-divider"></div>
-            <li>{indivnew.body}</li>
-            <div className = "column-divider"></div>
-            <li>{indivnew.author}</li>  
+            <div className = "bborder2"></div>
+            <div style = {{display: 'flex', justifyContent: 'center', margin: '1px', padding: '4px'}}>
+                <li style = {{margin: '10px'}}>{indivnew.date}</li>
+                <div className = "column-divider"></div>
+                <li style = {{margin: '10px'}}>{indivnew.category}</li>
+                <div className = "column-divider"></div>
+                <li style = {{margin: '10px'}}>{indivnew.author}</li>
+            </div>
+            <div className = "bborder2"></div>
+            <li style = {{margin: '5px'}}>{indivnew.body}</li>
+            <div className = "bborder2"></div>
+            <li style = {{margin: '10px'}}>{indivnew.url}</li>  
         </div>
-        <div className = "bborder2"></div>
+        <div className = "bborder"></div>
     </div>
     );  
     return (
