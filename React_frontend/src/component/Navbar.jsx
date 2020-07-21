@@ -21,7 +21,7 @@ const Navbarc = () => {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="/Moreyeets">More yeets</Nav.Link>
+            <Nav.Link href="https://acaya-intern.et.r.appspot.com/news/csv">Download CSV</Nav.Link>
             <Nav.Link eventKey={2} href="/Dankmemes">
               Dank memes
             </Nav.Link>

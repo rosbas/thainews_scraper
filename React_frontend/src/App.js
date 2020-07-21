@@ -4,7 +4,6 @@ import Dankmemes from "./component/Dankmemes.jsx";
 import Searchbar from "./component/Search/Searchbar.jsx";
 import Navbarc from "./component/Navbar.jsx";
 import Howwedoit from "./component/Howwedoit.jsx";
-import Moreyeets from "./component/Moreyeets.jsx";
 import Homepage from "./component/Homepage.jsx";
 
 import {
@@ -26,9 +25,6 @@ function App() {
           <Switch>
             <Route path="/Howwedoit" component = {Howwedoit}>
               <Howwedoit />
-            </Route>
-            <Route path="/Moreyeets" component = {Moreyeets}>
-              <Moreyeets />
             </Route>
             <Route path="/Searchbar" component = {Searchbar}>
               <Searchbar />

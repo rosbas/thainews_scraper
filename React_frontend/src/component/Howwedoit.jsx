@@ -8,6 +8,7 @@ const Howwwedoit = () => {
             <h2>Scrapy</h2>
             <h2>BeautifulSoup</h2>
             <h2>Selenium</h2>
+            <h1>The Website UI was made using React.</h1>
         </div>
     )
 }
