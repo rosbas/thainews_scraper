@@ -19,12 +19,16 @@ parameters:
     type: boolean
 
 jobs:
-  build-and-test:
+  build-docker:
     # executor: python/default
+    environment:
+      IMAGE_NAME: rosbas/docker-pythonxseleniumxscrapy
     docker:
-      - image: circleci/python:3.7.2
+      # - image: circleci/python:3.7.2
+      - image: circleci/buildpack-deps:stretch
     steps:
       - checkout
+      - setup_remote_docker
       # - python/load-cache
       # - python/install-deps
       # - python/save-cache
@@ -32,33 +36,36 @@ jobs:
       # - restore_cache:
       #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
-          name: Check Directory Once
-          working_directory: Flask_backend
-          command: dir
-      - run:
-          command: |
-            pip install --user -r << pipeline.parameters.dependency-file >>
-          name: Installing dependency
-          working_directory: Flask_backend
-      - save_cache:
-          key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
-          paths: 
-            - "Flask_backend"
-      - run:
-          name: Check Directory
-          working_directory: Flask_backend
-          command: dir
-      - run:
-          name: Testing dummy python test.
-          working_directory: Flask_backend
-          command: |
-            echo Running Test
-            python api/tests/test_basic.py
-            python test.py
+          name: Building Docker image
+          command: docker build -t $IMAGE_NAME:latest .
+      # - run:
+      #     name: Check Directory Once
+      #     working_directory: Flask_backend
+      #     command: dir
+      # - run:
+      #     command: |
+      #       pip install --user -r << pipeline.parameters.dependency-file >>
+      #     name: Installing dependency
+      #     working_directory: Flask_backend
+      # - save_cache:
+      #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
+      #     paths: 
+      #       - "Flask_backend"
+      # - run:
+      #     name: Check Directory
+      #     working_directory: Flask_backend
+      #     command: dir
+      # - run:
+      #     name: Testing dummy python test.
+      #     working_directory: Flask_backend
+      #     command: |
+      #       echo Running Test
+      #       python api/tests/test_basic.py
+      #       python test.py
 workflows:
   main:
     jobs:
-      - build-and-test:
+      - build-docker:
           filters:
             branches:
               only:
