@@ -38,30 +38,38 @@ jobs:
       - run:
           name: Building Docker image
           command: docker build -t $IMAGE_NAME:latest ./Flask_backend
-      # - run:
-      #     name: Check Directory Once
-      #     working_directory: Flask_backend
-      #     command: dir
-      # - run:
-      #     command: |
-      #       pip install --user -r << pipeline.parameters.dependency-file >>
-      #     name: Installing dependency
-      #     working_directory: Flask_backend
-      # - save_cache:
-      #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
-      #     paths: 
-      #       - "Flask_backend"
-      # - run:
-      #     name: Check Directory
-      #     working_directory: Flask_backend
-      #     command: dir
-      # - run:
-      #     name: Testing dummy python test.
-      #     working_directory: Flask_backend
-      #     command: |
-      #       echo Running Test
-      #       python api/tests/test_basic.py
-      #       python test.py
+  test:
+    environment:
+      IMAGE_NAME: rosbas/docker-pythonxseleniumxscrapy
+    docker:
+      # - image: circleci/python:3.7.2
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Check Directory Once
+          working_directory: Flask_backend
+          command: dir
+      - run:
+          command: |
+            pip install --user -r << pipeline.parameters.dependency-file >>
+          name: Installing dependency
+          working_directory: Flask_backend
+      - save_cache:
+          key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
+          paths: 
+            - "Flask_backend"
+      - run:
+          name: Check Directory
+          working_directory: Flask_backend
+          command: dir
+      - run:
+          name: Testing dummy python test.
+          working_directory: Flask_backend
+          command: |
+            echo Running Test
+            python api/tests/test_basic.py
+            python test.py
 workflows:
   main:
     jobs:
@@ -71,6 +79,12 @@ workflows:
               only:
                 - master
                 - adddb
+      - test:
+          requires:
+            - build-docker
+          filters:
+            branches:
+              only: adddb
 
 # jobs:
 #   one:
