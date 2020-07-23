@@ -22,7 +22,7 @@ jobs:
   build-docker:
     # executor: python/default
     environment:
-      IMAGE_NAME: Flask_backend/docker-pythonxseleniumxscrapy
+      IMAGE_NAME: rosbas/docker-pythonxseleniumxscrapy
     docker:
       # - image: circleci/python:3.7.2
       - image: circleci/buildpack-deps:stretch
@@ -37,7 +37,7 @@ jobs:
       #     key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
       - run:
           name: Building Docker image
-          command: docker build -t $IMAGE_NAME:latest .
+          command: docker build -t $IMAGE_NAME:latest ./Flask_backend
       # - run:
       #     name: Check Directory Once
       #     working_directory: Flask_backend
