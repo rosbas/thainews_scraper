@@ -61,18 +61,17 @@ jobs:
           name: Check Directory Once
           working_directory: Flask_backend
           command: dir
-      - run:
-          command: |
-            pip install --user -r << pipeline.parameters.dependency-file >>
-          name: Installing dependency
-          working_directory: Flask_backend
+      # - run:
+      #     command: |
+      #       pip install --user -r << pipeline.parameters.dependency-file >>
+      #     name: Installing dependency
+      #     working_directory: Flask_backend
       - save_cache:
           key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
           paths: 
             - "Flask_backend"
       - run:
-          name: Check Directory
-          working_directory: Flask_backend
+          name: Check Directory again
           command: dir
       - run:
           name: Testing dummy python test.
