@@ -18,14 +18,17 @@ parameters:
     description: 'Install packages for local user, not globally. Defaults to true.'
     type: boolean
 
-jobs:
-  build-docker:
-    # executor: python/default
+executors:
+  docker-publisher:
     environment:
       IMAGE_NAME: rosbas/docker-pythonxseleniumxscrapy
     docker:
       # - image: circleci/python:3.7.2
       - image: circleci/buildpack-deps:stretch
+jobs:
+  build-docker:
+    # executor: python/default
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
@@ -38,14 +41,18 @@ jobs:
       - run:
           name: Building Docker image
           command: docker build -t $IMAGE_NAME:latest ./Flask_backend
+      - persist_to_workspace:
+        root: .
+        paths: ./image.tar
   test:
-    environment:
-      IMAGE_NAME: rosbas/docker-pythonxseleniumxscrapy
-    docker:
-      # - image: circleci/python:3.7.2
-      - image: circleci/buildpack-deps:stretch
+    executor: docker-publisher
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - setup_remote_docker
+      - run:
+          name: Load archived Docker Image
+          command: docker load  -i /tmp/workspace/image.tar
       - run:
           name: Check Directory Once
           working_directory: Flask_backend
@@ -116,4 +123,3 @@ workflows:
 #       - two:
 #           requires:
 #            - one
-
