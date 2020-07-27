@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import loading1 from '../../loading1.svg'
 import { useEffect } from 'react';
+import { CSVLink, CSVDownload } from "react-csv";
 
 const Outputbox = ({keyword}) => {
     const [resultItem, setresultItem] = React.useState([]);
@@ -38,25 +39,35 @@ const Outputbox = ({keyword}) => {
     const listItems = resultItem.map((indivnew, index) =>
     <div>
         <div style={{display: 'inline-block', justifyContent: 'center', margin: '2px', padding: '1px'}}>
-            <li>{indivnew.title}</li>
+            <div>{indivnew.title}</div>
             <div className = "bborder2"></div>
             <div style = {{display: 'flex', justifyContent: 'center', margin: '1px', padding: '4px'}}>
-                <li style = {{margin: '10px'}}>{indivnew.date}</li>
+                <div style = {{margin: '10px'}}>{indivnew.date}</div>
                 <div className = "column-divider"></div>
-                <li style = {{margin: '10px'}}>{indivnew.category}</li>
+                <div style = {{margin: '10px'}}>{indivnew.category}</div>
                 <div className = "column-divider"></div>
-                <li style = {{margin: '10px'}}>{indivnew.author}</li>
+                <div style = {{margin: '10px'}}>{indivnew.author}</div>
             </div>
             <div className = "bborder2"></div>
-            <li style = {{margin: '5px'}}>{indivnew.body}</li>
+            <div style = {{margin: '4px', padding: '1%'}}>{indivnew.body}</div>
             <div className = "bborder2"></div>
-            <li style = {{margin: '10px'}}>{indivnew.url}</li>  
+            <div className = "urlbox">{indivnew.url}</div>  
         </div>
         <div className = "bborder"></div>
     </div>
-    );  
+    );
+
     return (
     <div>
+        <span>
+            <span>{'Showing '}</span>
+            <span>{resultItem.length}</span>
+            <span>{' Results'}</span>
+        </span>
+        <div>
+            <CSVLink data = {resultItem} filename={"News.csv"} className="btn btn-primary" target="_blank" >Download as CSV</CSVLink>
+        </div>
+        <div className = "bborder"></div>
         {loading ? listItems : <img src={loading1} className="loadingpic" alt="loading" /> }
     </div>
     );

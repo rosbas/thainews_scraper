@@ -25,7 +25,7 @@ const Searchbox = () => {
         //const article = { title: 'React Hooks POST Request Example' };
         //axios.post('https://reqres.in/api/articles', article)
             //.then(response => setCrawlreply(response.data.id));
-        const article = { search_field: {keyword} };
+        const article = { search_field: keyword };
         axios.post('https://acaya-intern.et.r.appspot.com/scraping', article)
             .then(response => setCrawlreply(response.data));
 
