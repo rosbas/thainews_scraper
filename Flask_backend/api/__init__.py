@@ -54,8 +54,10 @@ def create_app():
     pymysql.install_as_MySQLdb()
     db.init_app(app)
 
+    print("Urrrr....hello?")
     from .views import main,start_up
     app.register_blueprint(main)
+    print("Yoohoo...?")
     if app.config['TESTING'] == False:
         start_up()
     return app
