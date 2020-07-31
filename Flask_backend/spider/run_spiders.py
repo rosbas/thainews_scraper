@@ -29,7 +29,12 @@ def run_spider(spider, setting, search_value, alreadyUsedWordList, notYetUsedWor
 def f(q, alreadyUsedWordList, notYetUsedWordList, setting, spider, search_value):
     try:
         runner = crawler.CrawlerRunner(setting)
-        deferred = runner.crawl(spider, search_field=search_value)
+        # deferred = runner.crawl(spider, search_field=search_value)
+        # deferred.addBoth(lambda _: reactor.stop())
+        for spider in spiderloader.SpiderLoader.from_settings(setting).list():
+            runner.crawl(spider, search_field=search_value)
+
+        deferred = runner.join()
         deferred.addBoth(lambda _: reactor.stop())
         reactor.run()
         print('In multi')
@@ -48,7 +53,7 @@ def run_everything():
     # process = CrawlerProcess(setting)
     alreadyUsedWord = Manager().list()
     notYetUsedWord = Manager().list()
-    iterations = 50
+    iterations = 10
     roundCount = 0
     # get json, input the search value from flask to here.
     search_field = sys.argv[1]
@@ -57,15 +62,16 @@ def run_everything():
     session = Session()
     initialNewsCount = 0
     duplicateCountBeforeBreak = 0
+    # while True:
     while roundCount < iterations:
         alreadyUsedWord.append(search_field)
-        for spider_name in spider_loader.list():
-            print("Running spider %s" % (spider_name))
-            print(spider_name)
-            run_spider(spider_name, setting, search_field,
-                       alreadyUsedWord, notYetUsedWord)
-        # run_spider('thai_spider', setting, search_field,
-        #            alreadyUsedWord, notYetUsedWord)
+        # for spider_name in spider_loader.list():
+        #     print("Running spider %s" % (spider_name))
+        #     print(spider_name)
+        #     run_spider(spider_name, setting, search_field,
+        #                alreadyUsedWord, notYetUsedWord)
+        run_spider('thai_spider', setting, search_field,
+                   alreadyUsedWord, notYetUsedWord)
         session.commit()
         newsCount = session.query(func.count(News.id)).scalar()
 

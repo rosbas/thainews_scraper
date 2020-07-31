@@ -21,7 +21,7 @@ class ThaiRathSpider(scrapy.Spider):
         # self.ip has the (string) value passed on the command line
         # with `-a ip=somevalue`
         self.search_field = getattr(self,"search_field","")
-        print("Start Scraping")
+        print("THAI_SPIDER: Start Scraping")
         yield scrapy.Request('https://www.thairath.co.th/search?q='+quote(self.search_field)+'&p=1', callback=self.parse)
     def parse(self, response):
         content_page = response.css(".col-8 a").css("::attr(href)").extract()
@@ -33,7 +33,8 @@ class ThaiRathSpider(scrapy.Spider):
         next_page = "https://www.thairath.co.th/search?q=" +quote(self.search_field)+'&p='+str(self.count_page+1)
         if self.count_page < self.max_page:
             yield scrapy.Request(next_page, callback= self.parse)
-
+        else:
+            print("THAI_SPIDER: End Scraping")
 
     def parse_item(self, response):
         items = NewsItem()
