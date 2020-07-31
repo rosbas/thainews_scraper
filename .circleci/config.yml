@@ -76,14 +76,14 @@ jobs:
       # - run:
       #     name: Check Directory again
       #     command: dir
-      - run:
-          name: Testing dummy python test.
-          working_directory: Flask_backend
-          command: |
-            echo Running Test
-            python api/tests/test_basic.py
-            python test.py
-            circleci-agent step halt
+      # - run:
+      #     name: Testing dummy python test.
+      #     working_directory: Flask_backend
+      #     command: |
+      #       echo Running Test
+      #       python api/tests/test_basic.py
+      #       python test.py
+      #       circleci-agent step halt
 workflows:
   main:
     jobs:
