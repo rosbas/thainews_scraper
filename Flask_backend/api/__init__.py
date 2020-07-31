@@ -54,7 +54,8 @@ def create_app():
 
     from .views import main,start_up
     app.register_blueprint(main)
-    start_up()
+    if app.config['TESTING'] == False:
+        start_up()
     return app
 
 app=create_app()
