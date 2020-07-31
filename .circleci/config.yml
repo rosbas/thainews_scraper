@@ -49,30 +49,33 @@ jobs:
           paths: 
             - ./image.tar
   test:
-    executor: docker-publisher
+    # executor: docker-publisher
+    docker:
+      - image: circleci/python:3.7.2
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - setup_remote_docker
-      - run:
-          name: Load archived Docker Image
-          command: docker load  -i /tmp/workspace/image.tar
+      # - attach_workspace:
+      #     at: /tmp/workspace
+      # - setup_remote_docker
+      # - run:
+      #     name: Load archived Docker Image
+      #     command: docker load  -i /tmp/workspace/image.tar
+      - checkout
       - run:
           name: Check Directory Once
           working_directory: Flask_backend
           command: dir
-      # - run:
-      #     command: |
-      #       pip install --user -r << pipeline.parameters.dependency-file >>
-      #     name: Installing dependency
-      #     working_directory: Flask_backend
+      - run:
+          command: |
+            pip install --user -r << pipeline.parameters.dependency-file >>
+          name: Installing dependency
+          working_directory: Flask_backend
       - save_cache:
           key: myapp-{{ checksum "<< pipeline.parameters.dependency >>" }}
           paths: 
             - "Flask_backend"
-      - run:
-          name: Check Directory again
-          command: dir
+      # - run:
+      #     name: Check Directory again
+      #     command: dir
       - run:
           name: Testing dummy python test.
           working_directory: Flask_backend
@@ -90,8 +93,6 @@ workflows:
                 - master
                 - adddb
       - test:
-          requires:
-            - build-docker
           filters:
             branches:
               only: adddb
