@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.3.2
-  gke: circleci/gcp-gke@1.0.4
+  browser-tools: circleci/browser-tools@1.0.1
+  # gke: circleci/gcp-gke@1.0.4
 
 parameters:
   dependency:
@@ -90,7 +91,6 @@ workflows:
             branches:
               only:
                 - master
-                - MergeBranches
       - test:
           filters:
             branches:
