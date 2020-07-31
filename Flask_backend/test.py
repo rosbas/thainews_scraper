@@ -1,14 +1,13 @@
 import json
 import os
-import logging, sys
 import unittest
 from datetime import datetime
 from unittest import mock
 
-from api import app,db,models
 from scrapy import Request
 from scrapy.http import HtmlResponse
 
+from api import app,db,models
 from spider.news.models import News
 from spider.news.spiders.thairath_spider import ThaiRathSpider
 from api.views import news_gather
@@ -22,7 +21,6 @@ class BasicTests(unittest.TestCase):
     ############################
     #### setup and teardown ####
     ############################
-    # logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
     # executed prior to each test
     def setUp(self):
@@ -70,11 +68,7 @@ class BasicTests(unittest.TestCase):
 
         newsjson = json.loads(response.data.decode("utf-8"))
         actualnews = newsjson['news'][0]
-        try:
-            self.assertEqual(actualnews['title'],test_news.title)
-            logging.debug("Testing URL of / news is completed.")
-        except AssertionError:
-            logging.debug("An error occur while testing URL of / news")
+        self.assertEqual(actualnews['title'],test_news.title)
         # print(actualnews)
 
     @mock.patch("api.views.News")

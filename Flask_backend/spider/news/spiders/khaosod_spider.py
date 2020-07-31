@@ -24,7 +24,7 @@ class Khaosod2(scrapy.Spider):
     def start_requests(self):
         self.search_field = getattr(self,"search_field","")
         yield scrapy.Request('https://www.khaosod.co.th/search?s=' + quote(self.search_field), callback=self.parse)
-
+        print("Khaosod_Spider: Start Scraping")
     def parse(self, response):
         # the variable response contains the source code of the web
 
@@ -41,6 +41,7 @@ class Khaosod2(scrapy.Spider):
         for indivnews in col8news:
             indivlink = indivnews.css("a.udblock__permalink::attr(href)").get()
             yield response.follow(indivlink, callback=self.parse_indivnews)
+        print("KHAOSOD_Spider: End Scraping")
 
     def parse_indivnews(self, response):
         # the variable response contains the source code of the web
@@ -54,7 +55,7 @@ class Khaosod2(scrapy.Spider):
         # find div with class = "container ud-padding"
 
         # title1 = response.css("main.content").css("span.ud-bh__suffix::text").extract()
-        title = headlines.css("h1.udsg__main-title::text").extract()
+        title = headlines.css("h1.udsg__main-title::text").extract_first()
 
         date = headlines.css("div.udsg__meta-wrap")[1].css("div.udsg__meta-left span.udsg__meta::text").extract()
         # find the second udsg__meta-wrap for the date

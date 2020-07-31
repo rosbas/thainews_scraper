@@ -27,7 +27,7 @@ class Ch3Spider(scrapy.Spider):
         # with `-a ip=somevalue`
         self.search_field = getattr(self,"search_field","")
         yield scrapy.Request("https://www.ch3thailand.com/search?q=" + quote(self.search_field), callback=self.parse)
-
+        print("CH3_Spider: Start Scraping")
 
     def parse(self, response):
         op = webdriver.ChromeOptions()
@@ -53,8 +53,8 @@ class Ch3Spider(scrapy.Spider):
             if len(next_page) == 0:
                 return
             next_page[0].click()
-            print(self.count_page)
             sleep(5)
+        print("CH3_Spider: End Scraping")
         driver.close()
 
     def parse_item(self, response):
@@ -62,7 +62,6 @@ class Ch3Spider(scrapy.Spider):
         title = response.css(".content-head::text").extract_first()
         if title is None:
             return
-        print(title)
         author = "ch3"
         date = response.css(".content-des-text:nth-child(2)::text").extract_first()
         body = response.css(".content-news").css("::text").extract()
@@ -71,8 +70,6 @@ class Ch3Spider(scrapy.Spider):
             bodytext += paragraph + " /p "
         bodytext.strip()
         tags = response.css(".content-tag-click").css("::text").extract()
-        print(tags)
-        print("\n")
         url = response.request.url
         items['title'] = title
         items['author'] = author

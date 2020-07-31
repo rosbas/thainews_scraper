@@ -3,8 +3,7 @@ FROM gcr.io/google-appengine/python
 LABEL maintainer "Sean Pianka <pianka@eml.cc>"
 
 # # For chromedriver installation: curl/wget/libgconf/unzip
-RUN apt-get update -y && apt-get install -y wget curl unzip libgconf-2-4
-RUN apt-get update && apt-get install -y gnupg2
+RUN apt-get update -y && apt-get install -y wget curl unzip libgconf-2-4 gnupg2
 # ## For project usage: python3/python3-pip/chromium/xvfb
 # RUN apt-get update -y && apt-get install -y chromium xvfb python3 python3-pip
 

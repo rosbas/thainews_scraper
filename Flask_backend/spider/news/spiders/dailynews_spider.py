@@ -20,20 +20,23 @@ class DalinewsSpiderSpider(scrapy.Spider):
     name = 'dailynews_spider'
     start_urls = []
     current_page = 0
-    query_pages = 0
+    # query_pages = 0
     search_field = ""
     allowed_domains = []
 
-    max_searching_page = 1
-    max_query_pages = 5
+    max_searching_page = 5
+    # max_query_pages = 5
 
     def start_requests(self):
         self.search_field = getattr(self, "search_field", "")
         yield scrapy.Request("https://www.dailynews.co.th/search?q=" + quote(self.search_field), callback=self.parse)
-
+        print("DAILYNEWS_Spider: Start Scraping")
     def parse(self, response):
         op = webdriver.ChromeOptions()
         op.add_argument('headless')
+        op.add_argument("--no-sandbox")
+        op.add_argument("--disable-setuid-sandbox")
+        op.add_argument("--disable-extensions")
         if os.getenv('IS_APP_ENGINE'):
             driver = webdriver.Chrome(chrome_options=op)
         else:
@@ -48,10 +51,9 @@ class DalinewsSpiderSpider(scrapy.Spider):
             link_pages = scrapy_selector.css(
                 'div.gsc-thumbnail-inside div.gs-title a.gs-title::attr(href)').extract()
             for page in link_pages:
-                self.query_pages += 1
-                if self.query_pages > self.max_query_pages:
-                    return
-                print(page)
+                # self.query_pages += 1
+                # if self.query_pages > self.max_query_pages:
+                #     return
                 yield scrapy.Request(page, callback=self.parse_scrape_page, dont_filter=True)
                 sleep(2)
             element = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
@@ -60,6 +62,7 @@ class DalinewsSpiderSpider(scrapy.Spider):
                 "div[aria-label='หน้า " + str(self.current_page) + "']")
             next_page.click()
             sleep(2)
+        print("DAILYNEWS_Spider: End Scraping")
         driver.close()
 
     def parse_scrape_page(self, response):
@@ -117,7 +120,7 @@ class DalinewsSpiderSpider(scrapy.Spider):
             "สิงหาคม",
             "กันยายน",
             "ตุลาคม",
-            "พฤศจิกายน",
+            "พฤศdaจิกายน",
             "ธันวาคม",
         ]
         for i in thai_full_weekdays:

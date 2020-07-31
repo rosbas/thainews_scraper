@@ -1,10 +1,11 @@
+import signal
+import time
+
 from sqlalchemy.orm.state import InstanceState
 from .models import News, Tag, News_tag
-from . import db
-from datetime import timedelta
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for, current_app, make_response, Response
-from flask_cors import CORS, cross_origin
-from functools import update_wrapper
+
+from flask import Blueprint, jsonify, request, Response
+
 from collections import deque
 import subprocess
 import threading
@@ -15,7 +16,7 @@ output_data = []
 scrape_in_progress = False
 scrape_complete = False
 queue = deque()
-
+proc = None
 
 def progressFinishCheck():
     global scrape_in_progress
@@ -23,6 +24,11 @@ def progressFinishCheck():
     if len(queue) == 0:
         scrape_in_progress = False
     print('gets called')
+
+def scheduleNextScrape():
+    time.sleep(60*60*5)
+    print('sleep for 5 hrs')
+    start_up()
 
 
 def popenAndCall(onExit, *popenArgs, **popenKWArgs):
@@ -34,7 +40,9 @@ def popenAndCall(onExit, *popenArgs, **popenKWArgs):
     *popenArgs and **popenKWArgs are simply passed up to subprocess.Popen.
     """
     def runInThread(onExit, popenArgs, popenKWArgs):
-        proc = subprocess.Popen(*popenArgs, **popenKWArgs, shell= True)
+        global proc
+        proc = subprocess.Popen(*popenArgs, **popenKWArgs)
+        print(type(proc))
         proc.wait()
         onExit()
         return
@@ -44,6 +52,13 @@ def popenAndCall(onExit, *popenArgs, **popenKWArgs):
     thread.start()
 
     return thread  # returns immediately after the thread starts
+
+def start_up():
+    search_field = 'ข่าว'
+    popenAndCall(scheduleNextScrape, [
+                 'python3', 'startup.py', search_field], cwd='./spider')
+    # popenAndCall(progressFinishCheck, [
+    #     'scrapy','crawl', 'thai_spider', '-a', 'search_field=ข่าว'], cwd='./spider/news/spiders')
 
 
 @main.route('/scraping', methods=['POST'])
@@ -59,9 +74,10 @@ def hello_world():
         scrape_in_progress = True
         while len(queue) > 0:
             field = queue.pop()
-            # popenAndCall(progressFinishCheck, ['ls'], cwd='./spider')
             popenAndCall(progressFinishCheck, [
-                         'python', 'run_spiders.py', field], cwd='./spider')
+                         'python3', 'run_spiders.py', field], cwd='./spider')
+            # popenAndCall(progressFinishCheck, [
+            #     'scrapy','crawl', 'thai_spider', '-a', 'search_field=ข่าว'], cwd='./spider/news/spiders')
     return 'SCRAPE IN PROGRESS'
 
 
@@ -114,3 +130,32 @@ def searching():
                            'author': one.author, 'url': one.url, 'category': one.category  # , 'tags': one.tags ##
                            })
     return jsonify({'news': news_array})
+
+
+
+@main.route('/stop', methods=['POST'])
+def stop_scraping():
+    global proc
+    if isinstance(proc,subprocess.Popen):
+        if proc.poll() is None:
+            # proc.kill()
+            # outs, errs = proc.communicate()
+            proc.send_signal(signal.SIGINT)
+            proc.send_signal(signal.SIGINT)
+
+            return 'Process stopped'
+    return 'No Scraping is run'
+
+
+@main.route('/status')
+def get_status():
+    global scrape_in_progress
+    if scrape_in_progress:
+        return 'Currently Scraping'
+    return 'Currently Not Scraping'
+
+
+@main.route('/queue')
+def get_queue():
+    global queue
+    return str(queue)
