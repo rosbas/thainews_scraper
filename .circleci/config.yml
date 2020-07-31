@@ -91,7 +91,7 @@ workflows:
             branches:
               only:
                 - master
-                - adddb
+                - MergeBranches
       - test:
           filters:
             branches:
