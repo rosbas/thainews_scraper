@@ -82,7 +82,8 @@ jobs:
           command: |
             echo Running Test
             python api/tests/test_basic.py
-            python test.py
+            python test.
+            circleci-agent step halt
 workflows:
   main:
     jobs:
