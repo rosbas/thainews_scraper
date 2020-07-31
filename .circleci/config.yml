@@ -81,9 +81,7 @@ jobs:
           working_directory: Flask_backend
           command: |
             echo Running Test
-           # python api/tests/test_basic.py
             python test.py
-            # circleci-agent step halt
 workflows:
   main:
     jobs:
