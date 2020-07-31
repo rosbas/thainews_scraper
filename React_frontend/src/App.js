@@ -1,20 +1,45 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import './App.css';
+import Dankmemes from "./component/Dankmemes.jsx";
+import Searchbar from "./component/Search/Searchbar.jsx";
+import Navbarc from "./component/Navbar.jsx";
+import Howwedoit from "./component/Howwedoit.jsx";
+import Homepage from "./component/Homepage.jsx";
 
-const App = () => {
-	useEffect(() => {
-		fetch('http://localhost:5000/movies', {
-			headers: {
-				accepts: 'application/json',
-			},
-		}).then((response) =>
-			response
-				.json()
-				.then((data) => console.log(data))
-				.catch(() => console.log("Can't access due to fucking CORS policy"))
-		);
-	}, []);
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-	return <div className="App" />;
-};
+function App() {
+  return (
+    <div className="App">
+
+      <Router>
+        <Navbarc />
+          {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+            {/* Order is important */}
+          <Switch>
+            <Route path="/Howwedoit" component = {Howwedoit}>
+              <Howwedoit />
+            </Route>
+            <Route path="/Searchbar" component = {Searchbar}>
+              <Searchbar />
+            </Route>
+            <Route path="/Dankmemes" component = {Dankmemes}>
+              <Dankmemes />
+            </Route>
+            <Route path="/" component = {Homepage}>
+              <Homepage />
+            </Route>
+          </Switch>
+      </Router>
+
+    </div>
+  );
+}
 
 export default App;
