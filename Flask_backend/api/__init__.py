@@ -13,6 +13,8 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     # is this secure, someone helpppp
+    print("Why u get executed la???")
+    print(app.config['TESTING'])
     CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL",
                                                       "{drivername}://{user}:{passwd}@{host}:{port}/{db_name}?charset=utf8".format(

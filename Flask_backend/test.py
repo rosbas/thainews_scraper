@@ -24,7 +24,11 @@ class BasicTests(unittest.TestCase):
 
     # executed prior to each test
     def setUp(self):
+        print("Checking: before app.config")
+        print(app.config['TESTING'])
         app.config['TESTING'] = True
+        print("Checking: app.config")
+        print(app.config['TESTING'])
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + "scrapy_news1.db"
